@@ -10,17 +10,25 @@ Formula for DBrecent data was taken from the [TSM Blog Post](https://support.tra
 #### Example google apps script to automatically use this DBRecent data in your spreadsheet:  
 
 ```
+// Url to csv import
+var url = "https://raw.githubusercontent.com/ninthwalker/wow_thaumaturgy/refs/heads/main/DBRecent.csv"
+
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu("Update Thaumaturgy 👉️")
     .addItem("Import DBRecent Prices", "importCSVFromUrl")
     .addToUi();
 
-  autoUpdateData();
+  // valid minutes are 1, 5, 10, 15 or 30
+  autoUpdateData(1);
 }
 
-// valid minutes are 1, 5, 10, 15 or 30
-function autoUpdateData() {
+//Displays an alert as a Toast message
+function displayToastAlert(message) {
+  SpreadsheetApp.getActive().toast(message, "⚠️ Alert"); 
+}
+
+function autoUpdateData(min) {
   // Delete any existing triggers to avoid duplicates
   const triggers = ScriptApp.getProjectTriggers();
   triggers.forEach(trigger => {
@@ -32,13 +40,8 @@ function autoUpdateData() {
   // Create a new trigger that runs every x minutes
   ScriptApp.newTrigger('importCSVFromUrl')
     .timeBased()
-    .everyMinutes(10)
+    .everyMinutes(min)
     .create();
-}
-
-// Displays an alert as a Toast message
-function displayToastAlert(message) {
-  SpreadsheetApp.getActive().toast(message, "⚠️ Alert"); 
 }
 
 function writeDataToSheet(data) {
@@ -48,7 +51,6 @@ function writeDataToSheet(data) {
 }
 
 function importCSVFromUrl() {
-  var url = "https://raw.githubusercontent.com/ninthwalker/wow_thaumaturgy/refs/heads/main/DBRecent.csv"
   var contents = Utilities.parseCsv(UrlFetchApp.fetch(url));
   var sheetName = writeDataToSheet(contents);
    displayToastAlert("DBRecent prices were successfully updated");
