@@ -5,7 +5,8 @@ See timestamp in bottom of DBRecent.csv file for last update (UTC Timezone).
 Note that these DBRecent values, while very close to TSM DBRecent values are not always exactly the same. These data points for DBRecent AH values can be used in spreadsheets or others places where DBRecent data is more useful than DBMarket values.
 TSM Does not currently export DBRecent data on their website or API. Only In-Game via their desktop app.  
 
-Formula for DBrecent data was taken from the [TSM Blog Post](https://support.tradeskillmaster.com/tsm-addon-documentation/auctiondb-market-value)
+Formula for DBrecent data was taken from the [TSM Blog Post](https://support.tradeskillmaster.com/tsm-addon-documentation/auctiondb-market-value)  
+If you want to self-host and run generate the DBRecent data yourself, see the `wowAuctionAPI-Thaumaturgy-Github-Upload.ps1` script.
 
 #### Example google apps script to automatically use this DBRecent data in your spreadsheet:  
 
