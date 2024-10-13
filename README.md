@@ -6,7 +6,7 @@ Note that these DBRecent values, while very close to TSM DBRecent values are not
 TSM Does not currently export DBRecent data on their website or API. Only In-Game via their desktop app.  
 
 Formula for DBrecent data was taken from the [TSM Blog Post](https://support.tradeskillmaster.com/tsm-addon-documentation/auctiondb-market-value)  
-If you want to self-host and run generate the DBRecent data yourself, see the `wowAuctionAPI-Thaumaturgy-Github-Upload.ps1` script.
+If you want to self-host and generate the DBRecent data yourself, see the `wowAuctionAPI-Thaumaturgy-Github-Upload.ps1` script.
 
 #### Example google apps script to automatically use this DBRecent data in your spreadsheet:  
 
