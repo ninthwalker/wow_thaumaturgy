@@ -25,7 +25,7 @@ SetBindingMacro = false,
 ```
 ## TradeSkillMaster
 #### TSM Addon Modifications:  
-STM Does not enable all macro functionality. Modify below line in TradeSkillMaster\Core\UI\AuctionUI\Auctioning.lua for rescan button  
+TSM Does not enable all macro functionality. Modify below line in TradeSkillMaster\Core\UI\AuctionUI\Auctioning.lua for rescan button  
 ```
 :AddChild(UIElements.New("ActionButton", "rescanBtn")
 to
