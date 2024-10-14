@@ -37,15 +37,13 @@ Group and Operation Import:
 ```
 novtUXTnuy4Fwvahy7I6K4K4m2DJNPgbuYZypYfPaEIt20Ae3zCtYUikjkrHrsKGIA84SuR6AFe0rWl6bWNacFe8rWl66ssjznfbXoAbXh)EF69(4JpoxXPJo(ZV9tN8(HNUWLNIHzXqEgl48)E18Wdmna7BzDRMUvkkkQLmAAzG(aGyXAOzdC3gy)gOvn0Axqd0OcA21QxrzvcqXP1C9flvc7b61aBynmAGDRsLLv39AG7xcn723SYmM9nvLDV5Tflzlw0EV59lomZLhssctcwlNmbXyHEi783WG(Cj3JY)5Jq(WSiU4j25JWekvXkwxU1zusifXk3CXhqjEe2DbV8JqgctYsVJrSKV4XpI(JZ0NBDcjL369uv0NUUu1ZulpxT8c1YgQLfv)M4L3NgPI1eV8FZHoYtWXWP5XWPNWcDrfoHENGyUOe(cx5ctCrrdruzrTP)0SBpfZqPysK3wgb3ug4Vs8K)yg3o3lJbvTOfORegKqyO)GC2rvCZD1yeI(NzWeEi)8vbfYk)2P0qz6wfi2Kg7IrUJ3wYUTNddPmYoEoXq2yKcWqbYKuUfojO9okH96iHFFY3f0zIUVRMpB3opomrFUVg8kREDQtXLsthdJ0rOKsh5hYs5B7wDn)GEYu7PVl5gM)ppXu933aPd7bKFfuLjgIsrCXVKNv1J3c4kE6AI1FhDzDj0o9yeht8Mx1rL65e3XBzcUqFcj(H8bgaqqHCBDqdG4zQCi2mV2E3YkJ1C)CtfZisMCQi9DdGr8uCoS8rqkEGdmzmEyqwyKhMUICM4SdRgQ0MYw8CznwRWbfrotZmDUpPAqnh5DAf6hW3(Obd1DMJ1o5Wjb70Yu3cKaWR6)TvzaUt1(FBvnPAVhOGAr9EG6Pf19(lNwZU3t1Q1yE)ftRXqTa61U6RvNwFL62Ixi71)ZfOeOteAq252fLWrYUSnt)Wt)MR(wwTrCG)wqmw8RyM6Q9Zk8RXIFdpigggHPlRUIo0NJyLpt9KdvxR4Kteroe5ej(MjPhjZiJC(hGrziMx5MRNKwAnnROpDffX0zLkNJPlRzNrPA4Ed5bzYTkhpag0mnsxUKkzMj0RILJBZi5XvNUF)RukSuzOEGMdLlHFbTk4I0g8p8Fp
 ```
-- - Minimum Price: 0.95*dbrecent
-- - Maximum Price: check(max(dbrecent,dbmarket,dbregionmarketavg),max(5*avg(dbrecent,dbmarket,dbregionmarketavg),30*vendorsell))
 
 ## Auctionator
 #### Auctionator Shopping Import
 ```
 Thaumaturgy^"Gloom Chitin";;0;0;0;0;0;0;0;0;;1;10;^"Gloom Chitin";;0;0;0;0;0;0;0;0;;2;10;^"Aqirite";;0;0;0;0;0;0;0;0;;1;10;^"Aqirite";;0;0;0;0;0;0;0;0;;2;10;^"Mycobloom";;0;0;0;0;0;0;0;0;;1;10;^"Mycobloom";;0;0;0;0;0;0;0;0;;2;10;^"Weavercloth";;0;0;0;0;0;0;0;0;;1;10;^"Weavercloth";;0;0;0;0;0;0;0;0;;2;10;^"Stormcharged Leather";;0;0;0;0;0;0;0;0;;1;10;^"Stormcharged Leather";;0;0;0;0;0;0;0;0;;2;10;^"Blessing Blossom";;0;0;0;0;0;0;0;0;;1;10;^"Blessing Blossom";;0;0;0;0;0;0;0;0;;2;10;^"Ironclaw Ore";;0;0;0;0;0;0;0;0;;1;10;^"Ironclaw Ore";;0;0;0;0;0;0;0;0;;2;10;^"Storm Dust";;0;0;0;0;0;0;0;0;;1;10;^"Storm Dust";;0;0;0;0;0;0;0;0;;2;10;^"Arathor's Spear";;0;0;0;0;0;0;0;0;;1;10;^"Arathor's Spear";;0;0;0;0;0;0;0;0;;2;10;^"Orbinid";;0;0;0;0;0;0;0;0;;1;10;^"Orbinid";;0;0;0;0;0;0;0;0;;2;10;^"Luredrop";;0;0;0;0;0;0;0;0;;1;10;^"Luredrop";;0;0;0;0;0;0;0;0;;2;10;^"Bismuth";;0;0;0;0;0;0;0;0;;1;10;^"Bismuth";;0;0;0;0;0;0;0;0;;2;10;^"Blasphemite";;0;0;0;0;0;0;0;0;;#;10;^"Aerated Phial of Quick Hands";;0;0;0;0;0;0;0;0;;3;;^"Phial of Enhanced Ambidexterity";;0;0;0;0;0;0;0;0;;2;;
 ```  
-### Useful Macros
+## Useful Macros
 ```
 /click BagItemAutoSortButton
 /run ProfessionsFrame.CraftingPage.CreateAllButton:Click()
@@ -56,7 +54,7 @@ Thaumaturgy^"Gloom Chitin";;0;0;0;0;0;0;0;0;;1;10;^"Gloom Chitin";;0;0;0;0;0;0;0
 /run SELECTED_CHAT_FRAME:Clear()
 /run for b=0,5 do for s=1,C_Container.GetContainerNumSlots(b) do local l=ItemLocation:CreateFromBagAndSlot(b,s) if l:IsValid() and C_Item.GetItemID(l)==211802 then C_TradeSkillUI.CraftSalvage(430315,50,l) return end end end
 ```  
-#### Example google apps script to automatically use this DBRecent data in your spreadsheet:  
+## Google apps script to automatically use the DBRecent.csv data in your spreadsheet:  
 ```
 // Url to csv import
 var url = "https://raw.githubusercontent.com/ninthwalker/wow_thaumaturgy/refs/heads/main/DBRecent.csv"
