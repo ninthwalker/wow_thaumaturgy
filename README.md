@@ -66,7 +66,7 @@ function onOpen(e) {
     .addToUi();
 
   // valid minutes are 1, 5, 10, 15 or 30
-  autoUpdateData(1);
+  autoUpdateData(10);
 }
 
 //Displays an alert as a Toast message
