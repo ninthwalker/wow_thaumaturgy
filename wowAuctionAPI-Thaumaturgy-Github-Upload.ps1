@@ -6,7 +6,6 @@ using namespace System.Collections.Generic
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # Var's
-# $working_dir   = 'C:\scripts\Thaumaturgy' # windows
 $working_dir   = 'full directory path to this script. ie: C:\users\batman\desktop\Thaumaturgy'
 $lockFile      = "WoW_API_Lock.lock"
 $wowTokenTime  = "us_wow_token.txt" 
