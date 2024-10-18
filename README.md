@@ -1,9 +1,13 @@
+# Thaumaturgy Notes  
+
 ## DBRecent Prices for Thaumaturgy Mats
 Updated automatically every +/- 10m when the Blizzard API is updated.  
 See timestamp in bottom of DBRecent.csv file for last update (UTC Timezone).
 
 Note that these DBRecent values, while very close to TSM DBRecent values are not always exactly the same. These data points for DBRecent AH values can be used in spreadsheets or others places where DBRecent data is more useful than DBMarket values.
 TSM Does not currently export DBRecent data on their website or API. Only In-Game via their desktop app.  
+
+[Example Spreadsheet using DBRecent price source](https://docs.google.com/spreadsheets/d/1pFRUPYg-gPuV0sKcA2abSfqdAYSPF0dOU1szo1b380A)
 
 Formula for DBrecent data was taken from the [TSM Blog Post](https://support.tradeskillmaster.com/tsm-addon-documentation/auctiondb-market-value)  
 If you want to self-host and generate the DBRecent data yourself, see the `wowAuctionAPI-Thaumaturgy-Github-Upload.ps1` script.
