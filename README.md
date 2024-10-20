@@ -49,7 +49,8 @@ Thaumaturgy^"Gloom Chitin";;0;0;0;0;0;0;0;0;;1;10;^"Gloom Chitin";;0;0;0;0;0;0;0
 ```  
 ## Useful Macros
 ```
-/click BagItemAutoSortButton
+/click BagItemAutoSortButton (aka: C_Container.SortBags())
+/run C_Container.SetSortBagsRightToLeft(false) [true]
 /run ProfessionsFrame.CraftingPage.CreateAllButton:Click()
 /click TSMAuctioningBtn
 /click TSMRescan
