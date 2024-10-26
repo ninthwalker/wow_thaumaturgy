@@ -293,7 +293,7 @@ function Get-DBRecent {
             Remove-Item $lockFile -Force
         }
         logIt "Error Accessing Blizzard API:"
-	logIt $responseAll
+	logIt "$($responseAll.StatusCode) `n$($responseAll.ReasonPhrase)"
         exit
     }
     # remove lock file
