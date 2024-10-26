@@ -99,17 +99,17 @@ function Get-DBRecent {
 
         if (Get-Content $wowTimeFile) {
             # time exists to check against
-            $timeHeaders = @{"If-Modified-Since" = (Get-Content $wowTimeFile)}
+            $timeHeader = Get-Content $wowTimeFile
         } else {
             # time didnt exist so dl anyways
-            $timeHeaders = @{"If-Modified-Since" = "Sun, 22 Sep 2019 12:00:00 GMT"}
+            $timeHeader = "Sun, 22 Sep 2019 12:00:00 GMT"
         }
     } else {
         # timefile did not even exist so download anyways
-        $timeHeaders = @{"If-Modified-Since" = "Sun, 22 Sep 2019 12:00:00 GMT"}
+        $timeHeader = "Sun, 22 Sep 2019 12:00:00 GMT"
     }
 
-    try{
+    try {
         # get wow api token
         $wowCreds = @{
             client_id = $wow_client_id
@@ -139,8 +139,12 @@ function Get-DBRecent {
             logit "No WoW Token Found. Getting a new one"
         }
         # dl or check ah data for new data
-        $ahJson = Invoke-WebRequest -Uri "https://us.api.blizzard.com/data/wow/auctions/commodities?namespace=dynamic-us&locale=en_US&access_token=$($tokenData.access_token)" -Headers $timeHeaders -ContentType application/json
-	} Catch {
+	$wowHeaders = @{
+            'Authorization' = "Bearer $($tokenData.access_token)"
+            'If-Modified-Since' = $timeHeader
+        }
+        $ahJson = Invoke-WebRequest -Uri "https://us.api.blizzard.com/data/wow/auctions/commodities?namespace=dynamic-us&locale=en_US" -Headers $wowHeaders -ContentType application/json
+    } Catch {
         $responseAll = $_.Exception.Response
 		if (Test-Path $lockFile) {
 			Remove-Item $lockFile -Force | Out-Null
@@ -288,7 +292,8 @@ function Get-DBRecent {
         if (Test-Path $lockFile) {
             Remove-Item $lockFile -Force
         }
-        logIt "Error Accessing Blizzard API"
+        logIt "Error Accessing Blizzard API:"
+	logIt $responseAll
         exit
     }
     # remove lock file
@@ -320,10 +325,11 @@ Function Start-Upload {
     } | ConvertTo-Json
 
     # Upload
-    $upload = Invoke-RestMethod -Uri $apiUrl -Method Put -Headers @{
-        Authorization = "token $github_pat"
-        "User-Agent" = "Pwsh"
-    } -Body $jsonBody -ContentType "application/json"
+    $githubHeaders = @{
+        'Authorization' = "token $github_pat"
+        'User-Agent' = "Pwsh"    
+    }
+    $upload = Invoke-RestMethod -Uri $apiUrl -Method Put -Headers $githubHeaders -Body $jsonBody -ContentType application/json
 
     # Output the response
     if ($upload.content.name -eq 'DBRecent.csv') {
