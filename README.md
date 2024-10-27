@@ -54,6 +54,7 @@ Thaumaturgy^"Gloom Chitin";;0;0;0;0;0;0;0;0;;1;10;^"Gloom Chitin";;0;0;0;0;0;0;0
 /run ProfessionsFrame.CraftingPage.CreateAllButton:Click()
 /click TSMAuctioningBtn
 /click TSMRescan
+/run WeakAuras.ScanEvents('THAUM_MASTER')
 /run WeakAuras.ScanEvents("READ_THE_TOOLTIP")
 /run WeakAuras.ScanEvents("RESET_THE_TOOLTIP")
 /run SELECTED_CHAT_FRAME:Clear()
