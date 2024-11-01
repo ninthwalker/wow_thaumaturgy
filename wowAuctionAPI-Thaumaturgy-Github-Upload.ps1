@@ -5,18 +5,21 @@ using namespace System.Collections.Generic
 # Set TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-# Var's
-$working_dir   = 'full directory path to this script. ie: C:\users\batman\desktop\Thaumaturgy'
-$lockFile      = "WoW_API_Lock.lock"
-$wowTokenTime  = "us_wow_token.txt" 
-$wowTimeFile   = "us_wow_lastmodified.txt"
-$wowAuctions   = "DBRecent.csv"
-$logFile       = "WoW_API_Log.csv"
-$wow_client_id = 'your wow client id here'
-$wow_client_secret = 'your wow client secret here'
-$wow_grant_type = 'client_credentials' 
+# Script Var's
+$working_dir    = 'full directory path to this script. ie: C:\users\batman\desktop\Thaumaturgy'
+$lockFile       = "WoW_API_Lock.lock"
+$wowTokenTime   = "us_wow_token.txt" 
+$wowTimeFile    = "us_wow_lastmodified.txt"
+$wowAuctions    = "DBRecent.csv"
+$logFile        = "WoW_API_Log.csv"
+$logFileMaxSize = "25" # in Mb
 
-# github repo
+# Wow Creds
+$wow_grant_type = 'client_credentials' 
+$wow_client_id  = 'your wow client id here'
+$wow_client_secret = 'your wow client secret here'
+
+# Github repo
 $repoOwner = 'your github username'
 $repoName = 'your github repo'
 $branch = 'your branch. probably main'
@@ -56,14 +59,19 @@ $thaumMap = [ordered]@{
 Set-Location $working_dir
 $ProgressPreference = 'SilentlyContinue'
 
+# Cleanup Log file if larger than $logFileMaxSize. Keeps one extra log file.
+function Start-LogRotate {
+    if ( (Test-Path -Path $logFile) -and (((Get-Item -Path $logFile).Length / 1MB) -gt $logFileMaxSize) ) {
+        logIt "Log size is greater than $logFileMaxSize. Rotating log"
+        if (Test-Path "$logFile.old") {
+            Remove-Item "$logFile.old" -Force
+        }
+        Rename-Item -Path $logFile -NewName "$logFile.old" -Force
+    }
+}
+
 ### AUCTION HOUSE DATA FUNCTIONS ###
-
-function logIt {
-    param
-    (
-    [Parameter(Mandatory)][string]$status
-    )
-
+function logIt([string]$status) {
     [psCustomObject] @{
         'time' = (Get-Date).DateTime
         'status' = $status
@@ -75,21 +83,18 @@ function Get-DBRecent {
    
     #create lock file
     if (Test-Path $lockFile) {
-        # stop processing until complete
-		# remove lock file and check again if it is older than 10min.
-		$lockFileMaxAge = (Get-Date).AddMinutes(-10)
-		if ((Get-Item $lockfile).lastwritetime -lt $lockFileMaxAge) { 
-			Remove-Item $lockfile -Force
-			$Script:updateInProgress = $True
-			if (!(Test-Path $lockFile)) {
-				New-Item $lockFile | Out-Null
-			}
-		}
-		else {
-			$Script:updateInProgress = $True
-			logIt "lock file detected"
-			exit
-		}
+        # stop processing until complete or if lockfile older than 10m
+        # If for some reason the download or last process is taking a while, we don't check for at least 10m since last run
+	$lockFileMaxAge = (Get-Date).AddMinutes(-10)
+	if ((Get-Item $lockfile).lastwritetime -lt $lockFileMaxAge) { 
+	    Remove-Item $lockfile -Force
+	    if (!(Test-Path $lockFile)) {
+		New-Item $lockFile | Out-Null
+	    }
+	} else {
+	    logIt "Lock file detected. Waiting for last operation to finish. Exiting"
+	    exit
+	}
     } else {
         New-Item $lockFile | Out-Null
     }
@@ -279,6 +284,9 @@ function Get-DBRecent {
         $removeVar = @('AH', 'ahJson', 'thaumMats', 'thaumMatsGrouped')
         Remove-Variable $removeVar -Force
         [GC]::Collect()
+	if (Test-Path $lockFile) {
+            Remove-Item $lockFile -Force
+        }
 
     } elseif ($responseAll.StatusCode.value__ -eq '304' ){
         # remove lock file
@@ -327,12 +335,12 @@ Function Start-Upload {
     # Upload
     $githubHeaders = @{
         'Authorization' = "token $github_pat"
-        'User-Agent' = "Pwsh"    
+        'User-Agent' = "Pwsh"
     }
     $upload = Invoke-RestMethod -Uri $apiUrl -Method Put -Headers $githubHeaders -Body $jsonBody -ContentType application/json
 
     # Output the response
-    if ($upload.content.name -eq 'DBRecent.csv') {
+    if ($upload.content.name -eq $fileName) {
         logIt "DBRecent file uploaded to Github Successfully"
     } else {
         logIt "DBRecent file FAILED to upload to Github"
@@ -340,5 +348,6 @@ Function Start-Upload {
 }
 
 # Run it
+Start-LogRotate
 Get-DBRecent
 Start-Upload
