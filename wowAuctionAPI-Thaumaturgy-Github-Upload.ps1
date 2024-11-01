@@ -151,9 +151,9 @@ function Get-DBRecent {
         $ahJson = Invoke-WebRequest -Uri "https://us.api.blizzard.com/data/wow/auctions/commodities?namespace=dynamic-us&locale=en_US" -Headers $wowHeaders -ContentType application/json
     } Catch {
         $responseAll = $_.Exception.Response
-		if (Test-Path $lockFile) {
-			Remove-Item $lockFile -Force | Out-Null
-		}
+	    if (Test-Path $lockFile) {
+		Remove-Item $lockFile -Force | Out-Null
+	}
     }
 
     #if download was good, proceed
