@@ -1,7 +1,7 @@
 # Thaumaturgy Notes  
 
 ## DBRecent Prices for Thaumaturgy Mats
-Updated automatically every +/- 10m when the Blizzard API is updated.  
+Updated automatically whenever the Blizzard API Auction House data is updated. (usually every 60min, depending on Blizz)
 See timestamp in bottom of DBRecent.csv file for last update (UTC Timezone).
 
 Note that these DBRecent values, while very close to TSM DBRecent values are not always exactly the same. These data points for DBRecent AH values can be used in spreadsheets or others places where DBRecent data is more useful than DBMarket values.
