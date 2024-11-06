@@ -98,6 +98,7 @@ function autoUpdateData(min) {
 
 function writeDataToSheet(data) {
   var ss = SpreadsheetApp.getActive().getSheetByName("Import");
+  ss.clearContents();
   ss.getRange(1, 1, data.length, data[0].length).setValues(data);
   return ss.getName();
 }
